@@ -15,6 +15,7 @@ protocol BoardViewDelegate: class {
 class BoardView: UIView {
     
     private let kDimension: Int = 3
+    private let kDepth: Int = 5
     
     weak var delegate: BoardViewDelegate?
     
@@ -34,7 +35,7 @@ class BoardView: UIView {
     }
     
     func configure() {
-        board = Board(dimension: kDimension, depth: 0)
+        board = Board(dimension: kDimension, depth: kDepth)
         board?.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizer(gesture:)))
         addGestureRecognizer(gestureRecognizer)
@@ -44,6 +45,7 @@ class BoardView: UIView {
     
     func resetBoard() {
         subviews.forEach({ $0.removeFromSuperview() })
+        turn = .O
         board?.reset()
         createBoardGrid()
     }
@@ -88,7 +90,7 @@ class BoardView: UIView {
     }
     
     private func addMove(at coordinate: Coordinate) {
-        board?.addMove(move: Move(player: turn, coordinate: coordinate))
+        board?.addMove(coordinate: coordinate)
     }
     
     private func coordinateFromPoint(point: CGPoint) -> Coordinate {
@@ -108,9 +110,6 @@ extension BoardView: BoardDelegate {
     func didAddMoveToBoard(board: Board, move: Move) {
         configureMoveLabel(board: board, move: move)
         turn = board.turn
-        if turn == .X {
-            board.nextMove()
-        }
     }
     
     func didPlayerWin(board: Board, player: Player) {

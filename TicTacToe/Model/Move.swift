@@ -11,7 +11,6 @@ import UIKit
 enum Result: Int {
     case victory = 10
     case tie = 0
-    case unfinished = 1
     case lose = -10
 }
 

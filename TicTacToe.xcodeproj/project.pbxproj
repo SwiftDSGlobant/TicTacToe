@@ -22,6 +22,8 @@
 		545A192E20EDB6C700167C02 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A192D20EDB6C700167C02 /* CALayer.swift */; };
 		545A193320EDC3FD00167C02 /* Minimax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193220EDC3FD00167C02 /* Minimax.swift */; };
 		545A193720EDD6DA00167C02 /* BoardStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193620EDD6DA00167C02 /* BoardStates.swift */; };
+		BE78A40A20FF0CDF008DEC48 /* GameOverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78A40920FF0CDF008DEC48 /* GameOverTests.swift */; };
+		BE78A40C20FF0D11008DEC48 /* BoardStatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78A40B20FF0D11008DEC48 /* BoardStatesMock.swift */; };
 		BEAC80EC20FED9FB00C3DC47 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC80EB20FED9FB00C3DC47 /* Int.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		545A192D20EDB6C700167C02 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		545A193220EDC3FD00167C02 /* Minimax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minimax.swift; sourceTree = "<group>"; };
 		545A193620EDD6DA00167C02 /* BoardStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStates.swift; sourceTree = "<group>"; };
+		BE78A40920FF0CDF008DEC48 /* GameOverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverTests.swift; sourceTree = "<group>"; };
+		BE78A40B20FF0D11008DEC48 /* BoardStatesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStatesMock.swift; sourceTree = "<group>"; };
 		BEAC80EB20FED9FB00C3DC47 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +139,8 @@
 			children = (
 				545A190620EDACB600167C02 /* TicTacToeTests.swift */,
 				545A190820EDACB600167C02 /* Info.plist */,
+				BE78A40920FF0CDF008DEC48 /* GameOverTests.swift */,
+				BE78A40B20FF0D11008DEC48 /* BoardStatesMock.swift */,
 			);
 			path = TicTacToeTests;
 			sourceTree = "<group>";
@@ -342,6 +348,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				545A190720EDACB600167C02 /* TicTacToeTests.swift in Sources */,
+				BE78A40A20FF0CDF008DEC48 /* GameOverTests.swift in Sources */,
+				BE78A40C20FF0D11008DEC48 /* BoardStatesMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
