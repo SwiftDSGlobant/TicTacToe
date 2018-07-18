@@ -53,8 +53,9 @@ class Board {
     }
     
     func addMove(move newMove: Move) {
-        guard moves[newMove.coordinate] == nil else { return }
-        moves[newMove.coordinate] = newMove
+        guard let coordinate = newMove.coordinate else { return }
+        guard moves[coordinate] == nil else { return }
+        moves[coordinate] = newMove
         turn = !turn
         delegate?.didAddMoveToBoard(board: self, move: newMove)
         didPlayerWin()
@@ -63,8 +64,6 @@ class Board {
     private func didPlayerWin() {
         let gameOver = isGameOver()
         if gameOver == .victory {
-            delegate?.didPlayerWin(board: self, player: .O)
-        } else if gameOver == .lose {
             delegate?.didPlayerWin(board: self, player: .X)
         }
     }
@@ -75,10 +74,7 @@ class Board {
             let rows = moves.keys.filter({ $0.column == i }).map { moves[$0] }
             let columns = moves.keys.filter({ $0.row == i }).map { moves[$0] }
             if isLine(moves: rows) || isLine(moves: columns) {
-                if turn == .O {
-                    return .victory
-                }
-                return .lose
+                return .victory
             }
         }
         
@@ -91,10 +87,7 @@ class Board {
         let inversedCross = zip(range, inversedRange).map({ moves[Coordinate(row: $0, column: $1)] }).filter { $0 != nil }
         
         if isLine(moves: inversedCross) || isLine(moves: cross) {
-            if turn == .O {
-                return .victory
-            }
-            return .lose
+            return .victory
         }
         
         if moves.count == dimension.squared {
@@ -105,7 +98,7 @@ class Board {
     
     private func isLine(moves: [Move?]) -> Bool {
         guard moves.count == dimension else { return false }
-        let player = turn
+        let player = moves.first!!.player
         let allSame = moves.reduce(true, { $0 && ($1?.player == player) })
         if allSame {
             return true
@@ -123,11 +116,12 @@ class Board {
     }
     
     func printBoard() {
-        print(moves[Coordinate(row: 0, column: 0)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 0, column: 1)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 0, column: 2)]?.player.rawValue ?? "")
+        print(moves[Coordinate(row: 0, column: 0)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 0, column: 1)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 0, column: 2)]?.player.rawValue ?? " ")
         print("---------")
-        print(moves[Coordinate(row: 1, column: 0)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 1, column: 1)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 1, column: 2)]?.player.rawValue ?? "")
+        print(moves[Coordinate(row: 1, column: 0)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 1, column: 1)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 1, column: 2)]?.player.rawValue ?? " ")
         print("---------")
-        print(moves[Coordinate(row: 2, column: 0)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 2, column: 1)]?.player.rawValue ?? "", " | ", moves[Coordinate(row: 2, column: 2)]?.player.rawValue ?? "")
+        print(moves[Coordinate(row: 2, column: 0)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 2, column: 1)]?.player.rawValue ?? " ", " | ", moves[Coordinate(row: 2, column: 2)]?.player.rawValue ?? " ")
+        print("\n\n")
     }
     
 }

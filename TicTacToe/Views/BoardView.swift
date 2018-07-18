@@ -118,13 +118,15 @@ extension BoardView: BoardDelegate {
     }
     
     func configureMoveLabel(board: Board, move: Move) {
+        guard let coordinate = move.coordinate else { return }
+
         let label = UILabel()
         label.text = move.player.rawValue
         label.textAlignment = .center
         label.font = label.font.withSize(40.0)
         label.textColor = move.player.color
         addSubview(label)
-        positionViewInGrid(subview: label, atCoordinate: move.coordinate)
+        positionViewInGrid(subview: label, atCoordinate: coordinate)
     }
 
 }

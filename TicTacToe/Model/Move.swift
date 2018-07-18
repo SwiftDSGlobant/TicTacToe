@@ -40,30 +40,12 @@ prefix func !(player: Player) -> Player {
 struct Move {
     
     var player: Player
-    var coordinate: Coordinate
+    var coordinate: Coordinate?
     var score: Int = 0
     
-    init(player: Player, coordinate: Coordinate) {
+    init(player: Player, coordinate: Coordinate? = nil) {
         self.player = player
         self.coordinate = coordinate
     }
-    
-    static func win() -> Move {
-        var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
-        move.score = Result.victory.rawValue
-        return move
-    }
-    
-    static func tie() -> Move {
-        var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
-        move.score = Result.tie.rawValue
-        return move
-    }
-    
-    static func lose() -> Move {
-        var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
-        move.score = Result.lose.rawValue
-        return move
-    }
-    
+ 
 }

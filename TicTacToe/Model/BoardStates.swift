@@ -18,9 +18,8 @@ struct BoardStates {
         return [
             Coordinate(row: 0, column: 0): Move(player: .X, coordinate: Coordinate(row: 0, column: 0)),
             Coordinate(row: 0, column: 2): Move(player: .O, coordinate: Coordinate(row: 0, column: 2)),
-            Coordinate(row: 1, column: 0): Move(player: .O, coordinate: Coordinate(row: 1, column: 0)),
-            Coordinate(row: 1, column: 1): Move(player: .O, coordinate: Coordinate(row: 1, column: 1)),
-            Coordinate(row: 1, column: 2): Move(player: .X, coordinate: Coordinate(row: 1, column: 2))
+            Coordinate(row: 1, column: 1): Move(player: .X, coordinate: Coordinate(row: 1, column: 1)),
+            Coordinate(row: 1, column: 2): Move(player: .O, coordinate: Coordinate(row: 1, column: 2))
         
         ]
     }

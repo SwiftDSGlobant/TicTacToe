@@ -11,62 +11,78 @@ import Foundation
 class MiniMax {
     
     func execute(board: Board, player: Player) -> Move {
-        let board = board.simulatedBoard()
         var bestMove = Move(player: board.turn, coordinate: Coordinate(row: 0, column: 0))
         bestMove.score = Int.min
 
         for spot in board.spots {
+            let board = board.simulatedBoard()
+
             let newMove = Move(player: board.turn, coordinate: spot)
             board[spot] = newMove
             board.turn = !board.turn
-            
+            board.printBoard()
+
             let result = mini(board: board)
-            var move = Move(player: board.turn, coordinate: spot)
-            move.score = result
             
-            if (move.score > bestMove.score) {
-                bestMove.score = move.score
-                bestMove.coordinate = move.coordinate
+            if (result.score > bestMove.score) {
+                bestMove.score = result.score
+                bestMove.coordinate = result.coordinate
             }
         }
         return bestMove
 
     }
     
-    private func mini(board: Board) -> Int {
-        let board = board.simulatedBoard()
+    private func mini(board: Board) -> Move {
         let gameOver = board.isGameOver()
         guard gameOver == .unfinished else {
-            return gameOver.rawValue
+            var move = Move(player: board.turn, coordinate: board.spots.first)
+            move.score = gameOver.rawValue
+            return move
         }
         
-        var bestScore = Int.max
+        var bestMove = Move(player: board.turn, coordinate: board.spots.first)
+        bestMove.score = Int.max
+        
         for spot in board.spots {
+            let board = board.simulatedBoard()
             let newMove = Move(player: board.turn, coordinate: spot)
             board[spot] = newMove
             board.turn = !board.turn
+            board.printBoard()
             let result = maxi(board: board)
-            bestScore = min(bestScore, result)
+            if bestMove.score > result.score {
+                bestMove.score = result.score
+                bestMove.coordinate = spot
+            }
         }
-        return bestScore
+        return bestMove
     }
     
-    private func maxi(board: Board) -> Int {
-        let board = board.simulatedBoard()
+    private func maxi(board: Board) -> Move {
         let gameOver = board.isGameOver()
         guard gameOver == .unfinished else {
-            return gameOver.rawValue
+            var move = Move(player: board.turn, coordinate: board.spots.first)
+            move.score = gameOver.rawValue
+            return move
         }
         
-        var bestScore = Int.min
+        var bestMove = Move(player: board.turn, coordinate: board.spots.first)
+        bestMove.score = Int.min
+        
         for spot in board.spots {
+            let board = board.simulatedBoard()
             let newMove = Move(player: board.turn, coordinate: spot)
             board[spot] = newMove
             board.turn = !board.turn
+            board.printBoard()
             let result = mini(board: board)
-            bestScore = max(bestScore, result)
+            if bestMove.score < result.score {
+                bestMove.score = result.score
+                bestMove.coordinate = spot
+            }
         }
-        return bestScore
+        return bestMove
     }
 
 }
