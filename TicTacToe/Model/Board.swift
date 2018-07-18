@@ -23,6 +23,14 @@ class Board {
     let dimension: Int
     let depth: Int
     
+    var spots: [Coordinate] {
+        return BoardStates.allCordinates.filter({ moves[$0] == nil })
+    }
+    
+    func simulatedBoard() -> Board {
+        return Board(dimension: dimension, depth: depth, moves: moves)
+    }
+    
     init(dimension: Int, depth: Int, moves: [Coordinate: Move] = [:]) {
         self.dimension = dimension
         self.moves = moves
@@ -49,38 +57,56 @@ class Board {
         moves[newMove.coordinate] = newMove
         turn = !turn
         delegate?.didAddMoveToBoard(board: self, move: newMove)
-        didPlayerWin(player: newMove.player)
+        didPlayerWin()
     }
     
-    private func didPlayerWin(player: Player) {
-        guard hasWin() else { return }
-        delegate?.didPlayerWin(board: self, player: player)
+    private func didPlayerWin() {
+        let gameOver = isGameOver()
+        if gameOver == .victory {
+            delegate?.didPlayerWin(board: self, player: .O)
+        } else if gameOver == .lose {
+            delegate?.didPlayerWin(board: self, player: .X)
+        }
     }
     
-    private func hasWin() -> Bool {
+    func isGameOver() -> Result {
+        
         for i in 0..<dimension {
             let rows = moves.keys.filter({ $0.column == i }).map { moves[$0] }
             let columns = moves.keys.filter({ $0.row == i }).map { moves[$0] }
             if isLine(moves: rows) || isLine(moves: columns) {
-                return true
+                if turn == .O {
+                    return .victory
+                }
+                return .lose
             }
         }
+        
         let range = Array(0..<dimension)
         let inversedRange = range.reversed()
+        
         let cross = range.map({ index in
             moves[Coordinate(row: index, column: index)]
         }).filter { $0 != nil }
         let inversedCross = zip(range, inversedRange).map({ moves[Coordinate(row: $0, column: $1)] }).filter { $0 != nil }
+        
         if isLine(moves: inversedCross) || isLine(moves: cross) {
-            return true
+            if turn == .O {
+                return .victory
+            }
+            return .lose
         }
-        return false
+        
+        if moves.count == dimension.squared {
+            return .tie
+        }
+        return .unfinished
     }
     
     private func isLine(moves: [Move?]) -> Bool {
         guard moves.count == dimension else { return false }
-        let player = moves.first!?.player
-        let allSame = moves.reduce(true, { $1?.player == player })
+        let player = turn
+        let allSame = moves.reduce(true, { $0 && ($1?.player == player) })
         if allSame {
             return true
         }

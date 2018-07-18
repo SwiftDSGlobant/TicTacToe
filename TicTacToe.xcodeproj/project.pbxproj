@@ -22,6 +22,7 @@
 		545A192E20EDB6C700167C02 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A192D20EDB6C700167C02 /* CALayer.swift */; };
 		545A193320EDC3FD00167C02 /* Minimax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193220EDC3FD00167C02 /* Minimax.swift */; };
 		545A193720EDD6DA00167C02 /* BoardStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193620EDD6DA00167C02 /* BoardStates.swift */; };
+		BEAC80EC20FED9FB00C3DC47 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC80EB20FED9FB00C3DC47 /* Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		545A192D20EDB6C700167C02 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		545A193220EDC3FD00167C02 /* Minimax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minimax.swift; sourceTree = "<group>"; };
 		545A193620EDD6DA00167C02 /* BoardStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStates.swift; sourceTree = "<group>"; };
+		BEAC80EB20FED9FB00C3DC47 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				545A192D20EDB6C700167C02 /* CALayer.swift */,
+				BEAC80EB20FED9FB00C3DC47 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				545A192520EDAD5000167C02 /* Move.swift in Sources */,
 				545A18F420EDACB300167C02 /* ViewController.swift in Sources */,
 				545A18F220EDACB300167C02 /* AppDelegate.swift in Sources */,
+				BEAC80EC20FED9FB00C3DC47 /* Int.swift in Sources */,
 				545A192320EDAD0E00167C02 /* Board.swift in Sources */,
 				545A192120EDACDC00167C02 /* Coordinate.swift in Sources */,
 				545A192720EDB2DF00167C02 /* TreeNode.swift in Sources */,

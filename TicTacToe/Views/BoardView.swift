@@ -34,7 +34,7 @@ class BoardView: UIView {
     }
     
     func configure() {
-        board = Board(dimension: kDimension)
+        board = Board(dimension: kDimension, depth: 0)
         board?.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizer(gesture:)))
         addGestureRecognizer(gestureRecognizer)

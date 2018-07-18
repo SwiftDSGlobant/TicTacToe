@@ -8,88 +8,65 @@
 
 import Foundation
 
-enum Result: Int {
-    case victory = 10
-    case tie = 0
-    case lose = -10
-}
-
 class MiniMax {
     
     func execute(board: Board, player: Player) -> Move {
-        let emptySpots = BoardStates.allCordinates.filter({ board[$0] == nil })
-        if isWinner(board: board, player: .O) {
-            return Move.lose()
-        } else if isWinner(board: board, player: .X) {
-            return Move.win()
-        } else if emptySpots.isEmpty {
-            return Move.tie()
-        }
-        
-        var moves: [Move] = []
-        for spot in emptySpots {
-            var newMove = Move(player: player, coordinate: spot)
+        let board = board.simulatedBoard()
+        var bestMove = Move(player: board.turn, coordinate: Coordinate(row: 0, column: 0))
+        bestMove.score = Int.min
+
+        for spot in board.spots {
+            let newMove = Move(player: board.turn, coordinate: spot)
             board[spot] = newMove
+            board.turn = !board.turn
             
-            let result = execute(board: board, player: !player)
-            newMove.score = result.score
+            let result = mini(board: board)
+            var move = Move(player: board.turn, coordinate: spot)
+            move.score = result
             
-            board[spot] = nil
-            moves.append(newMove)
-        }
-        
-        var bestMove: Move!
-        var bestScore: Int = 0
-        
-        switch player {
-        case .O:
-            bestScore = Int.min
-            for move in moves {
-                bestScore = max(bestScore, move.score)
-                bestMove = move
-            }
-        case .X:
-            bestScore = Int.max
-            for move in moves {
-                bestScore = min(bestScore, move.score)
-                bestMove = move
+            if (move.score > bestMove.score) {
+                bestMove.score = move.score
+                bestMove.coordinate = move.coordinate
             }
         }
         return bestMove
-    }
-    
-}
 
+    }
+    
+    private func mini(board: Board) -> Int {
+        let board = board.simulatedBoard()
+        let gameOver = board.isGameOver()
+        guard gameOver == .unfinished else {
+            return gameOver.rawValue
+        }
+        
+        var bestScore = Int.max
+        for spot in board.spots {
+            let newMove = Move(player: board.turn, coordinate: spot)
+            board[spot] = newMove
+            board.turn = !board.turn
+            let result = maxi(board: board)
+            bestScore = min(bestScore, result)
+        }
+        return bestScore
+    }
+    
+    private func maxi(board: Board) -> Int {
+        let board = board.simulatedBoard()
+        let gameOver = board.isGameOver()
+        guard gameOver == .unfinished else {
+            return gameOver.rawValue
+        }
+        
+        var bestScore = Int.min
+        for spot in board.spots {
+            let newMove = Move(player: board.turn, coordinate: spot)
+            board[spot] = newMove
+            board.turn = !board.turn
+            let result = mini(board: board)
+            bestScore = max(bestScore, result)
+        }
+        return bestScore
+    }
 
-extension MiniMax {
-    
-    private func isWinner(board: Board, player: Player) -> Bool {
-        for i in 0..<3 {
-            let rows = board.moves.keys.filter({ $0.column == i }).map { board.moves[$0] }
-            let columns = board.moves.keys.filter({ $0.row == i }).map { board.moves[$0] }
-            if isLine(moves: rows, player: player) || isLine(moves: columns, player: player) {
-                return true
-            }
-        }
-        let range = Array(0...2)
-        let inversedRange = range.reversed()
-        let cross = range.map({ index in
-            board.moves[Coordinate(row: index, column: index)]
-        }).filter { $0 != nil }
-        let inversedCross = zip(range, inversedRange).map({ board.moves[Coordinate(row: $0, column: $1)] }).filter { $0 != nil }
-        if isLine(moves: inversedCross, player: player) || isLine(moves: cross, player: player) {
-            return true
-        }
-        return false
-    }
-    
-    private func isLine(moves: [Move?], player: Player) -> Bool {
-        guard moves.count == 3 else { return false }
-        let allSame = moves.reduce(true, { $0 && $1?.player == player })
-        if allSame {
-            return true
-        }
-        return false
-    }
-    
 }
