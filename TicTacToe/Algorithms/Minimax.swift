@@ -19,11 +19,11 @@ class MiniMax {
     func execute(board: Board, player: Player) -> Move {
         let emptySpots = BoardStates.allCordinates.filter({ board[$0] == nil })
         if isWinner(board: board, player: .O) {
-            return Move.loserMove()
+            return Move.lose()
         } else if isWinner(board: board, player: .X) {
-            return Move.winnerMove()
+            return Move.win()
         } else if emptySpots.isEmpty {
-            return Move.tieMove()
+            return Move.tie()
         }
         
         var moves: [Move] = []
@@ -48,7 +48,7 @@ class MiniMax {
                 bestScore = max(bestScore, move.score)
                 bestMove = move
             }
-        default:
+        case .X:
             bestScore = Int.max
             for move in moves {
                 bestScore = min(bestScore, move.score)

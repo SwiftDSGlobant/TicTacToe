@@ -41,19 +41,19 @@ struct Move {
         self.coordinate = coordinate
     }
     
-    static func winnerMove() -> Move {
+    static func win() -> Move {
         var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
         move.score = Result.victory.rawValue
         return move
     }
     
-    static func tieMove() -> Move {
+    static func tie() -> Move {
         var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
         move.score = Result.tie.rawValue
         return move
     }
     
-    static func loserMove() -> Move {
+    static func lose() -> Move {
         var move = Move(player: .O, coordinate: Coordinate(row: 0, column: 0))
         move.score = Result.lose.rawValue
         return move

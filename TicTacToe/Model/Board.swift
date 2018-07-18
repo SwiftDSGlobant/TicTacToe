@@ -20,8 +20,14 @@ class Board {
     var minimax: MiniMax = MiniMax()
     weak var delegate: BoardDelegate?
     
-    init(moves: [Coordinate: Move] = [:]) {
+    let dimension: Int
+    let depth: Int
+    
+    init(dimension: Int, depth: Int, moves: [Coordinate: Move] = [:]) {
+        self.dimension = dimension
         self.moves = moves
+        self.depth = depth
+        
         if moves.count % 2 == 0 {
             turn = .O
         } else {
@@ -47,20 +53,19 @@ class Board {
     }
     
     private func didPlayerWin(player: Player) {
-        if hasWin() {
-            delegate?.didPlayerWin(board: self, player: player)
-        }
+        guard hasWin() else { return }
+        delegate?.didPlayerWin(board: self, player: player)
     }
     
     private func hasWin() -> Bool {
-        for i in 0..<3 {
+        for i in 0..<dimension {
             let rows = moves.keys.filter({ $0.column == i }).map { moves[$0] }
             let columns = moves.keys.filter({ $0.row == i }).map { moves[$0] }
             if isLine(moves: rows) || isLine(moves: columns) {
                 return true
             }
         }
-        let range = Array(0...2)
+        let range = Array(0..<dimension)
         let inversedRange = range.reversed()
         let cross = range.map({ index in
             moves[Coordinate(row: index, column: index)]
@@ -73,7 +78,7 @@ class Board {
     }
     
     private func isLine(moves: [Move?]) -> Bool {
-        guard moves.count == 3 else { return false }
+        guard moves.count == dimension else { return false }
         let player = moves.first!?.player
         let allSame = moves.reduce(true, { $1?.player == player })
         if allSame {

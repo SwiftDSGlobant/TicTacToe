@@ -21,7 +21,6 @@
 		545A192A20EDB3B700167C02 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A192920EDB3B700167C02 /* BoardView.swift */; };
 		545A192E20EDB6C700167C02 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A192D20EDB6C700167C02 /* CALayer.swift */; };
 		545A193320EDC3FD00167C02 /* Minimax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193220EDC3FD00167C02 /* Minimax.swift */; };
-		545A193520EDC41900167C02 /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193420EDC41900167C02 /* GameTree.swift */; };
 		545A193720EDD6DA00167C02 /* BoardStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A193620EDD6DA00167C02 /* BoardStates.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +62,6 @@
 		545A192920EDB3B700167C02 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		545A192D20EDB6C700167C02 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		545A193220EDC3FD00167C02 /* Minimax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minimax.swift; sourceTree = "<group>"; };
-		545A193420EDC41900167C02 /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
 		545A193620EDD6DA00167C02 /* BoardStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				545A193220EDC3FD00167C02 /* Minimax.swift */,
-				545A193420EDC41900167C02 /* GameTree.swift */,
 			);
 			path = Algorithms;
 			sourceTree = "<group>";
@@ -324,7 +321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				545A192A20EDB3B700167C02 /* BoardView.swift in Sources */,
-				545A193520EDC41900167C02 /* GameTree.swift in Sources */,
 				545A192E20EDB6C700167C02 /* CALayer.swift in Sources */,
 				545A193320EDC3FD00167C02 /* Minimax.swift in Sources */,
 				545A193720EDD6DA00167C02 /* BoardStates.swift in Sources */,

@@ -14,13 +14,15 @@ protocol BoardViewDelegate: class {
 
 class BoardView: UIView {
     
+    private let kDimension: Int = 3
+    
     weak var delegate: BoardViewDelegate?
     
-    private var board = Board()
+    private var board: Board?
     private var turn: Player = .O
 
     private var gridSize: CGFloat {
-        return frame.size.width / 3.0
+        return frame.size.width / CGFloat(kDimension)
     }
     
     override init(frame: CGRect) {
@@ -32,7 +34,8 @@ class BoardView: UIView {
     }
     
     func configure() {
-        board.delegate = self
+        board = Board(dimension: kDimension)
+        board?.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognizer(gesture:)))
         addGestureRecognizer(gestureRecognizer)
         createBoardGrid()
@@ -41,11 +44,12 @@ class BoardView: UIView {
     
     func resetBoard() {
         subviews.forEach({ $0.removeFromSuperview() })
-        board.reset()
+        board?.reset()
         createBoardGrid()
     }
     
     func setupMoves() {
+        guard let board = board else { return }
         for move in board.moves.values {
             configureMoveLabel(board: board, move: move)
         }
@@ -69,8 +73,8 @@ class BoardView: UIView {
     }
     
     private func createBoardGrid() {
-        for row in 0..<3 {
-            for column in 0..<3 {
+        for row in 0..<kDimension {
+            for column in 0..<kDimension {
                 let coordinate = Coordinate(row: row, column: column)
                 let view = UIView()
                 
@@ -84,7 +88,7 @@ class BoardView: UIView {
     }
     
     private func addMove(at coordinate: Coordinate) {
-        board.addMove(move: Move(player: turn, coordinate: coordinate))
+        board?.addMove(move: Move(player: turn, coordinate: coordinate))
     }
     
     private func coordinateFromPoint(point: CGPoint) -> Coordinate {
